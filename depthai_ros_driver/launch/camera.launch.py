@@ -63,7 +63,17 @@ def launch_setup(context, *args, **kwargs):
                         package="depthai_ros_driver",
                         plugin="depthai_ros_driver::Camera",
                         name=name,
-                        parameters=[params_file],
+                        parameters=[
+                            params_file,
+                            {
+                                "camera": {
+                                    "i_external_calibration_path": get_package_share_directory(
+                                        "depthai_ros_driver"
+                                    )
+                                    + "/config/calibration/rgb.yaml"
+                                }
+                            },
+                        ]
                     )
             ],
             arguments=['--ros-args', '--log-level', log_level],
